@@ -1,9 +1,12 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Text, Input, Button } from "react-native-elements";
-import Spacer from "../components/Spacer";
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Text, Input, Button } from 'react-native-elements';
+import Spacer from '../components/Spacer';
 
 const SignupScreen = ({ navigation: { navigate } }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={styles.containerStyle}>
       <Spacer>
@@ -11,33 +14,46 @@ const SignupScreen = ({ navigation: { navigate } }) => {
       </Spacer>
       <Spacer />
       <Input
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={email}
+        onChangeText={(newEmail) => setEmail(newEmail)}
         label="Your Email Address"
         placeholder="email@address.com"
         leftIconContainerStyle={styles.leftIconStyle}
-        leftIcon={{ type: "MaterialCommunityIcons", name: "email" }}
+        leftIcon={{ type: 'MaterialCommunityIcons', name: 'email' }}
       />
       <Input
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={password}
+        onChangeText={(newPassword) => setPassword(newPassword)}
         label="Password"
         placeholder="Password"
         secureTextEntry={true}
         leftIconContainerStyle={styles.leftIconStyle}
-        leftIcon={{ type: "MaterialCommunityIcons", name: "lock" }}
+        leftIcon={{ type: 'MaterialCommunityIcons', name: 'lock' }}
       />
       <Spacer />
-      <Button title="Sign Up" type="solid" buttonStyle={styles.buttonStyle} />
+      <Button
+        title="Sign Up"
+        type="solid"
+        buttonStyle={styles.buttonStyle}
+        onPress={() => navigate('Signin')}
+      />
     </View>
   );
 };
 
 SignupScreen.navigationOptions = () => {
-  return { headershow: false };
+  return { headerShown: false };
 };
 
 const styles = StyleSheet.create({
   containerStyle: {
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: 200,
   },
   leftIconStyle: {
