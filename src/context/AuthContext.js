@@ -8,8 +8,31 @@ const authReducer = (state, action) => {
   }
 };
 
+//action functions
+const signup = (dispatch) => {
+  return () => {
+    //make api request to sign up with email/pw
+    //if success modify state we are authenticated
+    //if fail show error
+  };
+};
+
+const signin = (dispatch) => {
+  return () => {
+    //make api request to sign in with email/pw
+    //if success modify state we are authenticated
+    //if fail show error
+  };
+};
+
+const signout = (dispatch) => {
+  return () => {
+    //try to sign out!
+  };
+};
+
 export const { Context, Provider } = createDataContext(
   authReducer,
-  {},
+  { signup, signin, signout },
   { isSignedIn: false }
 );
