@@ -1,5 +1,6 @@
 import React from 'react';
 import createDataContext from './createDataContext';
+import apiTracker from '../api/tracker';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -10,10 +11,14 @@ const authReducer = (state, action) => {
 
 //action functions
 const signup = (dispatch) => {
-  return () => {
-    //make api request to sign up with email/pw
-    //if success modify state we are authenticated
-    //if fail show error
+  return async (email, password) => {
+    try {
+      const response = await apiTracker.post('/signup', { email, password });
+      console.log(response.data);
+      //if success modify state we are authenticated
+    } catch (err) {
+      console.log(err.response.data);
+    }
   };
 };
 
