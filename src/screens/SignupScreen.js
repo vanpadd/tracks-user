@@ -36,6 +36,9 @@ const SignupScreen = ({ navigation: { navigate } }) => {
         leftIconContainerStyle={styles.leftIconStyle}
         leftIcon={{ type: 'MaterialCommunityIcons', name: 'lock' }}
       />
+      {state.errorMessage ? (
+        <Text style={styles.errorMessageStyle}>{state.errorMessage}</Text>
+      ) : null}
       <Spacer />
       <Button
         title="Sign Up"
@@ -63,6 +66,10 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     paddingHorizontal: 100,
+  },
+  errorMessageStyle: {
+    fontSize: 16,
+    color: 'red',
   },
 });
 

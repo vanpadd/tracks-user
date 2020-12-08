@@ -4,6 +4,8 @@ import apiTracker from '../api/tracker';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case 'error':
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }
@@ -16,8 +18,9 @@ const signup = (dispatch) => {
       const response = await apiTracker.post('/signup', { email, password });
       console.log(response.data);
       //if success modify state we are authenticated
+      dispatch({ type: 'error', payload: '' });
     } catch (err) {
-      console.log(err.response.data);
+      dispatch({ type: 'error', payload: 'Sign up error!' });
     }
   };
 };
@@ -39,5 +42,5 @@ const signout = (dispatch) => {
 export const { Context, Provider } = createDataContext(
   authReducer,
   { signup, signin, signout },
-  { isSignedIn: false }
+  { isSignedIn: false, errorMessage: '' }
 );
