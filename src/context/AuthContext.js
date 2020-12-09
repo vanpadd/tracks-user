@@ -6,8 +6,6 @@ import { navigate } from '../NavigationService';
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case 'signup':
-      return { token: action.payload, errorMessage: '' };
     case 'signin':
       return { token: action.payload, errorMessage: '' };
     case 'error':
@@ -18,18 +16,18 @@ const authReducer = (state, action) => {
 };
 
 //action functions
-const signup = (dispatch) => async (email, password) => {
+const signup = (dispatch) => async ({ email, password }) => {
   try {
     const response = await apiTracker.post('/signup', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
-    dispatch({ type: 'signup', payload: response.data.token });
+    dispatch({ type: 'signin', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
     dispatch({ type: 'error', payload: 'Sign up error!' });
   }
 };
 
-const signin = (dispatch) => async (email, password) => {
+const signin = (dispatch) => async ({ email, password }) => {
   try {
     const response = await apiTracker.post('/signin', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
