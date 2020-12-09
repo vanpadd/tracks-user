@@ -6,7 +6,13 @@ import NavLink from '../components/NavLink';
 import AuthForm from '../components/AuthForm';
 
 const SigninScreen = () => {
-  const { state, signin, clearErrorMessage } = useContext(AuthContext);
+  const { state, signin, clearErrorMessage, attemptSignin } = useContext(
+    AuthContext
+  );
+
+  useEffect(() => {
+    attemptSignin();
+  }, []);
 
   return (
     <View style={styles.containerStyle}>
