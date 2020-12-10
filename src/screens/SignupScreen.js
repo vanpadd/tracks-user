@@ -4,12 +4,13 @@ import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import NavLink from '../components/NavLink';
 import AuthForm from '../components/AuthForm';
+import ModalView from '../components/ModalView';
 
 const SignupScreen = () => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
   return (
-    <View style={styles.containerStyle}>
+    <ModalView>
       <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
         headerText="Sign up to Tracker"
@@ -21,21 +22,12 @@ const SignupScreen = () => {
         link="Already have an account? Go to sign in."
         routeName="Signin"
       />
-    </View>
+    </ModalView>
   );
 };
 
 SignupScreen.navigationOptions = () => {
   return { headerShown: false };
 };
-
-const styles = StyleSheet.create({
-  containerStyle: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    marginBottom: 200,
-  },
-});
 
 export default SignupScreen;

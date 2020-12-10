@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Context as AuthContext } from '../context/AuthContext';
 import NavLink from '../components/NavLink';
 import AuthForm from '../components/AuthForm';
+import ModalView from '../components/ModalView';
 
 const SigninScreen = () => {
   const { state, signin, clearErrorMessage, attemptSignin } = useContext(
@@ -15,7 +15,7 @@ const SigninScreen = () => {
   }, []);
 
   return (
-    <View style={styles.containerStyle}>
+    <ModalView>
       <NavigationEvents onWillFocus={clearErrorMessage} />
       <AuthForm
         headerText="Sign in to Tracker"
@@ -27,21 +27,12 @@ const SigninScreen = () => {
         link="Don't have an account? Go to sign up."
         routeName="Signup"
       />
-    </View>
+    </ModalView>
   );
 };
 
 SigninScreen.navigationOptions = () => {
   return { headerShown: false };
 };
-
-const styles = StyleSheet.create({
-  containerStyle: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    marginBottom: 200,
-  },
-});
 
 export default SigninScreen;
