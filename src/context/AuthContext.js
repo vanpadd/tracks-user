@@ -6,10 +6,12 @@ import { navigate } from '../NavigationService';
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case 'signin':
-      return { token: action.payload, errorMessage: '' };
-    case 'error':
-      return { ...state, errorMessage: action.payload };
+    case 'signinLoading':
+      return { ...state, errorMessage: '', loading: true };
+    case 'signinLoaded':
+      return { token: action.payload, errorMessage: '', loading: false };
+    case 'signinFail':
+      return { ...state, errorMessage: action.payload, loading: false };
     case 'clearErrorMessage':
       return { ...state, errorMessage: '' };
     case 'signout':
@@ -24,7 +26,7 @@ const attemptSignin = (dispatch) => async () => {
   const token = await AsyncStorage.getItem('token');
 
   if (token) {
-    dispatch({ type: 'signin', payload: token });
+    dispatch({ type: 'signinLoaded', payload: token });
     navigate('TrackList');
   } else {
     navigate('Signin');
@@ -37,23 +39,27 @@ const clearErrorMessage = (dispatch) => () => {
 
 const signup = (dispatch) => async ({ email, password }) => {
   try {
+    dispatch({ type: 'signinLoading'})
     const response = await apiTracker.post('/signup', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
-    dispatch({ type: 'signin', payload: response.data.token });
+    dispatch({ type: 'signinLoaded', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
-    dispatch({ type: 'error', payload: 'Sign up error!' });
+    await dispatch({ type: 'signinLoading'})
+    dispatch({ type: 'signinFail', payload: 'Sign up error!' });
   }
 };
 
 const signin = (dispatch) => async ({ email, password }) => {
   try {
+    dispatch({ type: 'signinLoading'})
     const response = await apiTracker.post('/signin', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
-    dispatch({ type: 'signin', payload: response.data.token });
+    dispatch({ type: 'signinLoaded', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
-    dispatch({ type: 'error', payload: err.response.data.error || 'Check Your Connection!'});
+    await dispatch({ type: 'signinLoading'})
+    dispatch({ type: 'signinFail', payload: err.response.data.error || 'Check Your Connection!'});
   }
 };
 
@@ -66,5 +72,5 @@ const signout = (dispatch) => async () => {
 export const { Context, Provider } = createDataContext(
   authReducer,
   { signup, signin, signout, clearErrorMessage, attemptSignin },
-  { token: null, errorMessage: '' }
+  { token: null, errorMessage: '', loading: false }
 );

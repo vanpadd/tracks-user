@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 
-const AuthForm = ({ headerText, errorMessage, onSubmitText, onSubmit }) => {
+const AuthForm = ({ headerText, errorMessage, onSubmitText, onSubmit, loading }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -38,12 +38,13 @@ const AuthForm = ({ headerText, errorMessage, onSubmitText, onSubmit }) => {
         <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
       ) : null}
       <Spacer />
-      <Button
+      {loading ? <ActivityIndicator /> : <Button
         title={onSubmitText}
         type="solid"
         buttonStyle={styles.buttonStyle}
         onPress={() => onSubmit({ email, password })}
-      />
+      />}
+      
       <Spacer />
     </>
   );
