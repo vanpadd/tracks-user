@@ -53,7 +53,7 @@ const signin = (dispatch) => async ({ email, password }) => {
     dispatch({ type: 'signin', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
-    dispatch({ type: 'error', payload: err.response.data.error });
+    dispatch({ type: 'error', payload: err.response.data.error || 'Check Your Connection!'});
   }
 };
 
