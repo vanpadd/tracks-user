@@ -39,27 +39,28 @@ const clearErrorMessage = (dispatch) => () => {
 
 const signup = (dispatch) => async ({ email, password }) => {
   try {
-    dispatch({ type: 'signinLoading'})
+    dispatch({ type: 'signinLoading' });
     const response = await apiTracker.post('/signup', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
     dispatch({ type: 'signinLoaded', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
-    await dispatch({ type: 'signinLoading'})
     dispatch({ type: 'signinFail', payload: 'Sign up error!' });
   }
 };
 
 const signin = (dispatch) => async ({ email, password }) => {
   try {
-    dispatch({ type: 'signinLoading'})
+    dispatch({ type: 'signinLoading' });
     const response = await apiTracker.post('/signin', { email, password });
     await AsyncStorage.setItem('token', response.data.token);
     dispatch({ type: 'signinLoaded', payload: response.data.token });
     navigate('TrackList');
   } catch (err) {
-    await dispatch({ type: 'signinLoading'})
-    dispatch({ type: 'signinFail', payload: err.response.data.error || 'Check Your Connection!'});
+    dispatch({
+      type: 'signinFail',
+      payload: err.response.data.error || 'Check Your Connection!',
+    });
   }
 };
 

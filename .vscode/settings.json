@@ -1,0 +1,39 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "window.zoomLevel": 0,
+    "workbench.startupEditor": "newUntitledFile",
+    "editor.tabSize": 2,
+    "workbench.editor.enablePreview": false,
+    "tslint.autoFixOnSave": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "prettier.eslintIntegration": true,
+    // "eslint.autoFixOnSave": false,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "javascript.suggest.autoImports": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "breadcrumbs.enabled": true,
+    "powermode.enabled": true,
+    "powermode.enableShake": false,
+    "diffEditor.renderSideBySide": false,
+    "python.jediEnabled": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": false
+    },
+    "prettier.singleQuote": true,
+    "editor.formatOnSave": true,
+    "python.languageServer": "Microsoft",
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "javascript.updateImportsOnFileMove.enabled": "always"
+}
